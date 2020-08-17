@@ -3,8 +3,6 @@ var loading = `<div class="spinner-border text-light" role="status">
                      <span class="sr-only">Loading...</span>
                  </div>`
 
-                
-
 // search button clicked
 document.getElementById("inputForm").addEventListener('submit', start);
 function start(e) {
@@ -21,7 +19,7 @@ function start(e) {
                 displaySuggestion(data);
                 document.getElementById("search-result").innerText = "Result found"
             } else {
-                document.getElementById("search-result").innerText = "No item found !"
+                document.getElementById("search-result").innerText = "Sorry no item in the list"
             }
         })
     e.preventDefault();
@@ -36,15 +34,13 @@ function displaySuggestion(allData) {
 
 
 
-    // 10 suggestion
+    // only 10 suggestion will come
     let list = [];
     for (let i = 0; i < 10; i++) {
         const item = {
             title: data[i].title,
             albumTitle: data[i].album.title,
-            albumImage: data[i].album.cover_small,
             artistName: data[i].artist.name,
-            artistImage: data[i].artist.picture_small
         }
 
         list.push(item);
@@ -54,7 +50,7 @@ function displaySuggestion(allData) {
 
 
 
-    //  html display suggestion
+    //  html for display suggestions
     let display = document.getElementById("display-result");
     display.innerHTML = "";
     document.querySelector('.single-result').style.display = "block";
@@ -66,7 +62,7 @@ function displaySuggestion(allData) {
                 <p class="author lead">Artist : <span id="artistName">${artistName}</span></p>
                 <p class="author lead">Album : <span id="albumTitle">${albumTitle}</span></p>
             </div>
-            <div class ="col-md-4 col-sm-4 text-md-right text-right">
+            <div class ="col-md-6 col-sm-6 text-md-right text-right">
                 <a href="#" onclick="getLyrics('${title}','${artistName}')" class="btn btn-success">Get Lyrics</a>
             </div>
             <div class="bottom-line"></div>`
@@ -88,9 +84,6 @@ const getLyrics = (title, artistName) => {
 }
 
 
-
-
-
 // display lyrics from getLyrics
 
 const displayLyrics = (data, title, artistName) => {
@@ -107,7 +100,7 @@ const displayLyrics = (data, title, artistName) => {
 
 
 
-// reset the id fields
+// reset id fields
 const resetField = () => {
     document.getElementById("search-result").innerText = "";
     document.getElementById("display-result").innerText = "";
